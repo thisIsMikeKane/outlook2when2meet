@@ -1,0 +1,13 @@
+body {
+  /* Force to the max width of 800px, otherwise infinite loop resizes may occur  */
+  /* TODO Figure out why this is happening and fix it.  */
+  width: 800px;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+}
