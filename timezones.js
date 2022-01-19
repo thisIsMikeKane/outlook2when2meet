@@ -7,7 +7,7 @@
 // IANA identifiers
 // Mappings taken from
 // https://github.com/unicode-org/cldr/blob/master/common/supplemental/windowsZones.xml
-const zoneMappings = {
+var zoneMappings = {
   "Dateline Standard Time": "Etc/GMT+12",
   "UTC-11": "Etc/GMT+11",
   "Aleutian Standard Time": "America/Adak",

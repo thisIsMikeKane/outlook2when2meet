@@ -5,6 +5,7 @@ const redirectUri = typeof browser !== "undefined" && browser.identity ?
 
 console.log("Firefox extension redirect URI set to ", redirectUri);
 console.log("This url must be registered in the Azure portal as a single-page application redirect uri, and as the post logout url");
+//TODO save signin token
 
 const msalInstance = new msal.PublicClientApplication({
     auth: {
@@ -27,15 +28,6 @@ const msalRequest = {
 }
 // Set currently logged in account
 const accounts = msalInstance.getAllAccounts();
-// if (accounts.length) {
-//     document.getElementById("username").innerHTML = accounts[0].username;
-// }
-
-// // Check for an already logged-in user
-// const account = msalClient.getActiveAccount();
-// if (account) {
-//   initializeGraphClient(msalClient, account, msalRequest.scopes);
-// }
 
 /**
  * Adds a sign in button for the user signed into the browser
@@ -76,7 +68,7 @@ async function signIn() {
 
   // Save the profile in session
   sessionStorage.setItem('graphUser', JSON.stringify(user));
-  updatePage(Views.home);
+  
 }
 // </signInSnippet>
 
@@ -210,13 +202,13 @@ async function getSignedInUser() {
   return new Promise((resolve, reject) => {
       if (false && browser && browser.identity) {
           // Running in extension popup
-          browser.identity.getProfileUserInfo((user) => {
-              if (user) {
-                  resolve(user);
-              } else {
-                  resolve(null);
-              }
-          });
+        //   browser.identity.getProfileUserInfo((user) => {
+        //       if (user) {
+        //           resolve(user);
+        //       } else {
+        //           resolve(null);
+        //       }
+        //   });
       } else {
           // Running on localhost
           resolve(null);
