@@ -1,6 +1,6 @@
 {
     "name": "Outlook2When2meet",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "A Firefox extension to fill out When2meet forms based on availability in Outlook web calendar",
     "homepage_url": "https://github.com/thisIsMikeKane/outlook2when2meet",
     "manifest_version": 2,

@@ -22,8 +22,7 @@ const msalInstance = new msal.PublicClientApplication({
 const msalRequest = {
   scopes: [
     'user.read',
-    'mailboxsettings.read',
-    'calendars.readwrite'
+    'calendars.read'
   ]
 }
 // Set currently logged in account
@@ -54,7 +53,7 @@ const accounts = msalInstance.getAllAccounts();
 async function signIn() {
 
   // Assemble login URL
-  const url = await getLoginUrl();
+  const url = await getLoginUrl(msalRequest);
 
   // Use the Mozilla Extension web auth flow
   const result = await launchWebAuthFlow(url);
