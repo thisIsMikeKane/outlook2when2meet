@@ -1,40 +1,49 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
+import { PublicClientApplication, InteractionType, AccountInfo } from "@azure/msal-browser";
+import { AuthCodeMSALBrowserAuthenticationProvider } from "@microsoft/microsoft-graph-client/authProviders/authCodeMsalBrowser";
+import { Client } from "@microsoft/microsoft-graph-client";
+import moment from 'moment';
+
+import { getIanaFromWindows } from './timezones'
+
+const IGNORE_FULL_DAY = process.env.IGNORE_FULL_DAY;
 
 // <graphInitSnippet>
 let graphClient = undefined;
 
-function initializeGraphClient(msalClient, account, scopes)
+export function initializeGraphClient(msalClient, account, scopes)
 {
   // Create an authentication provider
-  const authProvider = new MSGraphAuthCodeMSALBrowserAuthProvider
-  .AuthCodeMSALBrowserAuthenticationProvider(msalClient, {
+  const authProvider = new AuthCodeMSALBrowserAuthenticationProvider(msalClient, {
     account: account,
     scopes: scopes,
-    interactionType: msal.InteractionType.PopUp
+    interactionType: InteractionType.PopUp
   });
 
   // Initialize the Graph client
-  graphClient = MicrosoftGraph.Client.initWithMiddleware({authProvider});
+  graphClient = Client.initWithMiddleware({authProvider});
 }
 // </graphInitSnippet>
 
 // <getUserSnippet>
-async function getUser() {
+export async function getUser() {
   return graphClient
     .api('/me')
     // Only get the fields used by the app
-    .select('id,displayName,mail,userPrincipalName,mailboxSettings')
+    // .select('id,displayName,mail,userPrincipalName,mailboxSettings')
+    .select('id,displayName,mailboxSettings')
     .get();
 }
 // </getUserSnippet>
 
 // <getEventsSnippet>
-async function getEvents(startOfWeek=null,endOfWeek=null) {
+export async function getEvents(startOfWeek=null,endOfWeek=null) {
   const user = JSON.parse(sessionStorage.getItem('graphUser'));
   // Convert user's Windows time zone ("Pacific Standard Time")
   // to IANA format ("America/Los_Angeles")
   // Moment needs IANA format
+  console.log(user)
   let ianaTimeZone = getIanaFromWindows(user.mailboxSettings.timeZone);
   console.log(`Converted: ${ianaTimeZone}`);
 
@@ -54,7 +63,7 @@ async function getEvents(startOfWeek=null,endOfWeek=null) {
   // &$select=subject,organizer,start,end
   // &$orderby=start/dateTime
   // &$top=50
-  response = await graphClient
+  let response = await graphClient
     .api('/me/calendarview')
     // Set the Prefer=outlook.timezone header so date/times are in
     // user's preferred time zone
@@ -69,7 +78,7 @@ async function getEvents(startOfWeek=null,endOfWeek=null) {
     .top(50)
     .get();
 
-  meetings = response.value;
+  let meetings = response.value;
   if (IGNORE_FULL_DAY) {
     // Remove meetings that are 24 hours long starting and ending on the hour
     //TODO decide if there's a better way to determine full day events

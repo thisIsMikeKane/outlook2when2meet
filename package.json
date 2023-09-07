@@ -1,0 +1,31 @@
+{
+  "name": "outlook2when2meet",
+  "version": "0.3.0",
+  "description": "A Firefox extension to fill out [When2meet](https://www.when2meet.com) forms based on availability in Outlook web calendar.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "webpack --progress",
+    "build:watch": "npm run build -- --mode=development --watch",
+    "start": "npm run build && web-ext run -s extension/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Michael Kane",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-loader": "^9.1.3",
+    "dotenv-webpack": "^8.0.1",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "@azure/msal-browser": "^3.1.0",
+    "@microsoft/microsoft-graph-client": "^3.0.6",
+    "jquery": "^3.7.1",
+    "moment": "^2.29.4",
+    "moment-timezone": "^0.5.43"
+  }
+}

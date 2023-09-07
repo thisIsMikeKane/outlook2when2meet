@@ -1,12 +1,9 @@
-function notifyUser(title,message,type='basic') {
-    browser.notifications.create({
-      "type": type,
-      "title": title,
-      "message": message
-    });
-}
+import { notifyUser } from './utils_background/notifications';
+import { checkWhen2meet, fillOutWhen2meet } from './utils_background/when2meet';
+import { signIn } from './utils_background/auth';
+import { STR_ERROR_NOTIFICATION } from './utils_background/strings';
 
-browser.browserAction.onClicked.addListener(async function(tab){
+browser.action.onClicked.addListener(async function(tab){
 
     // Check that the current page is when2meet.com
     try {

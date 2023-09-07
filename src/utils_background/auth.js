@@ -1,3 +1,9 @@
+import { PublicClientApplication } from  '@azure/msal-browser';
+
+import { initializeGraphClient, getUser } from './graph'
+
+const CLIENT_ID = process.env.AZURE_CLIENT_ID;
+
 // Set the redirect URI to the https://<ID>.extensions.allizom.org/ provided by Firefox
 const redirectUri = typeof browser !== "undefined" && browser.identity ?
     browser.identity.getRedirectURL() : 
@@ -7,7 +13,7 @@ console.log("Firefox extension redirect URI set to ", redirectUri);
 console.log("This url must be registered in the Azure portal as a single-page application redirect uri, and as the post logout url");
 //TODO save signin token
 
-const msalInstance = new msal.PublicClientApplication({
+const msalInstance = new PublicClientApplication({
     auth: {
         authority: "https://login.microsoftonline.com/common/",
         clientId: CLIENT_ID,
@@ -22,35 +28,38 @@ const msalInstance = new msal.PublicClientApplication({
 const msalRequest = {
   scopes: [
     'user.read',
+    'mailboxsettings.read',
     'calendars.read'
   ]
 }
 // Set currently logged in account
-const accounts = msalInstance.getAllAccounts();
+// const accounts = msalInstance.getAllAccounts();
 
 /**
  * Adds a sign in button for the user signed into the browser
  */
- getSignedInUser()
- .then(async (user) => {
-     if (user) {
-         const signInHintButton = document.getElementById("sign-in-hint");
-         signInHintButton.innerHTML = `Sign In (w/ ${user.email})`;
-         signInHintButton.addEventListener("click", async () => {
-             const url = await getLoginUrl({
-                 loginHint: user.email
-             });
+//  getSignedInUser()
+//  .then(async (user) => {
+//      if (user) {
+//          const signInHintButton = document.getElementById("sign-in-hint");
+//          signInHintButton.innerHTML = `Sign In (w/ ${user.email})`;
+//          signInHintButton.addEventListener("click", async () => {
+//              const url = await getLoginUrl({
+//                  loginHint: user.email
+//              });
 
-             const result = await launchWebAuthFlow(url);
+//              const result = await launchWebAuthFlow(url);
 
-             document.getElementById("username").innerHTML = result.account.username;
-         });
-         signInHintButton.classList.remove("hidden");
-     }
- })
+//              document.getElementById("username").innerHTML = result.account.username;
+//          });
+//          signInHintButton.classList.remove("hidden");
+//      }
+//  })
 
 // <signInSnippet>
-async function signIn() {
+export async function signIn() {
+
+  await msalInstance.initialize();
 
   // Assemble login URL
   const url = await getLoginUrl(msalRequest);

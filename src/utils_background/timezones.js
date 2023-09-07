@@ -147,7 +147,7 @@ var zoneMappings = {
   "Line Islands Standard Time": "Pacific/Kiritimati"
 };
 
-function getIanaFromWindows(windowsZoneName) {
+export function getIanaFromWindows(windowsZoneName) {
   return zoneMappings[windowsZoneName] || "Etc/GMT";
 }
 // </zoneMappingsSnippet>
