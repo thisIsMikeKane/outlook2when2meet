@@ -12,7 +12,8 @@
         "notifications",
         "storage",
         "tabs",
-        "identity"
+        "identity",
+        "scripting"
     ],
     "browser_specific_settings": {
       "gecko": {

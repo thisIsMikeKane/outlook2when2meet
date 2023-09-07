@@ -23,7 +23,7 @@
  *                    inserted into the page context).
  * https://stackoverflow.com/a/40572286/6661759
  */
-function executeInPage(functionToRunInPage, leaveInPage, id) {
+export function executeInPage(functionToRunInPage, leaveInPage, id) {
     //Execute a function in the page context.
     // Any additional arguments passed to this function are passed into the page to the
     // functionToRunInPage.

@@ -3,7 +3,7 @@
 import { PublicClientApplication, InteractionType, AccountInfo } from "@azure/msal-browser";
 import { AuthCodeMSALBrowserAuthenticationProvider } from "@microsoft/microsoft-graph-client/authProviders/authCodeMsalBrowser";
 import { Client } from "@microsoft/microsoft-graph-client";
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import { getIanaFromWindows } from './timezones'
 
