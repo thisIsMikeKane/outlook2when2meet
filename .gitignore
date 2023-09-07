@@ -1,5 +1,6 @@
 config.js
 web-ext-artifacts/
+*.zip
 
 # Logs
 logs

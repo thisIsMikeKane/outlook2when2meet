@@ -9,7 +9,7 @@ browser.action.onClicked.addListener(async function(tab){
     try {
         await checkWhen2meet();
     } catch(error) {
-        notifyUser(STR_ERROR_NOTIFICATION, error.message);
+        notifyUser(STR_ERROR_NOTIFICATION, `${error.message}`);
         console.error(error);
         return 
     }
@@ -18,7 +18,7 @@ browser.action.onClicked.addListener(async function(tab){
     try {
         await signIn();
     } catch(error) {
-        notifyUser(STR_ERROR_NOTIFICATION, error.message);
+        notifyUser(STR_ERROR_NOTIFICATION, `${error.message}`);
         console.error(error);
         return;
     }
@@ -27,7 +27,7 @@ browser.action.onClicked.addListener(async function(tab){
     try {
         fillOutWhen2meet();
     } catch(error) {
-        notifyUser(STR_ERROR_NOTIFICATION, error.message);
+        notifyUser(STR_ERROR_NOTIFICATION, `${error.message}`);
         console.error(error);
         return;
     }

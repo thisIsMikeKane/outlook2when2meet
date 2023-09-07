@@ -32,29 +32,6 @@ const msalRequest = {
     'calendars.read'
   ]
 }
-// Set currently logged in account
-// const accounts = msalInstance.getAllAccounts();
-
-/**
- * Adds a sign in button for the user signed into the browser
- */
-//  getSignedInUser()
-//  .then(async (user) => {
-//      if (user) {
-//          const signInHintButton = document.getElementById("sign-in-hint");
-//          signInHintButton.innerHTML = `Sign In (w/ ${user.email})`;
-//          signInHintButton.addEventListener("click", async () => {
-//              const url = await getLoginUrl({
-//                  loginHint: user.email
-//              });
-
-//              const result = await launchWebAuthFlow(url);
-
-//              document.getElementById("username").innerHTML = result.account.username;
-//          });
-//          signInHintButton.classList.remove("hidden");
-//      }
-//  })
 
 // <signInSnippet>
 export async function signIn() {
