@@ -1,7 +1,7 @@
 {
     "name": "Outlook2When2meet",
-    "version": "0.3.1",
-    "description": "A Firefox extension to fill out When2meet forms based on availability in Outlook web calendar",
+    "version": "See package.json",
+    "description": "See package.json",
     "homepage_url": "https://github.com/thisIsMikeKane/outlook2when2meet",
     "manifest_version": 3,
     "content_security_policy": {
@@ -22,16 +22,16 @@
     },
     "background": {
       "scripts": [
-        "dist/background.js"
+        "background.js"
       ]
     },
     "action": {
       "default_icon": {
-        "16":  "images/calendar-16px.png",
-        "32":  "images/calendar-32px.png",
-        "48":  "images/calendar-48px.png",
-        "64":  "images/calendar-64px.png",
-        "128": "images/calendar-128px.png"
+        "16":  "calendar-16px.png",
+        "32":  "calendar-32px.png",
+        "48":  "calendar-48px.png",
+        "64":  "calendar-64px.png",
+        "128": "calendar-128px.png"
       },
       "default_title": "Outlook2When2meet"
     },
@@ -39,7 +39,7 @@
       {
         "matches": ["*://*.when2meet.com/*"],
         "js": [
-          "dist/content_scripts.js"
+          "content_scripts.js"
         ]
       }
     ]

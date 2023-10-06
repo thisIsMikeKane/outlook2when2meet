@@ -1,8 +1,11 @@
 /* eslint-env node */
 
 const path = require('path');
-const Dotenv = require('dotenv-webpack');
+const package = require('./package.json');
 const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
+const TransformJson = require('transform-json-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   entry: {
@@ -15,7 +18,7 @@ module.exports = {
   output: {
     // This copies each source entry into the extension dist folder named
     // after its entry config key.
-    path: path.join(__dirname, 'extension', 'dist'),
+    path: path.join(__dirname, 'dist'),
     filename: '[name].js',
   },
   module: {
@@ -44,6 +47,20 @@ module.exports = {
     new webpack.ProvidePlugin({
         $: 'jquery',
         jQuery: 'jquery'
+    }),
+    new CopyPlugin({
+      patterns: [{ 
+        from: "static/", 
+        to: './',
+      }],
+    }),
+    new TransformJson({
+      source: path.resolve(__dirname, 'src', 'manifest.json'),
+      filename: 'manifest.json',
+      object: {
+        description: package.description,
+        version: package.version
+      }
     })
   ],
   // This will expose source map files so that errors will point to your
